@@ -1,14 +1,97 @@
-import React from "react"
-// import CategoriesCards from "../../components/CategoriesCards"
+import React from 'react';
+import { graphql } from 'gatsby';
+import Box from '../components/Box';
 
-import Layout from "../layout/Layout"
-export default function Categories() {
-  return (
-    <Layout>
+function Index({ data }) {
+	const [searchText, setSearchText] = React.useState('');
+	const [filteredPost, setFilteredPost] = React.useState('');
+	const posts = data.allButterPage.edges;
 
-      {/* <div className="container">
-        <CategoriesCards />
-      </div> */}
-    </Layout>
-  )
+	React.useEffect(() => {
+		setFilteredPost(posts);
+	}, [posts]);
+
+	function handleChanges(e) {
+		setSearchText(e.target.value);
+		const filteredData = posts.filter(function (post) {
+			return post.node.article_name
+				.toLowerCase()
+				.includes(e.target.value.toLowerCase());
+		});
+
+		setFilteredPost(filteredData);
+	}
+
+	return (
+		<div>
+			<title>Knowledge Base with Gatsby and ButterCMS</title>
+
+			<main>
+				<div
+					style={{
+						color: 'black',
+					}}
+					className="py-10 bg-green-300 flex text-center align-center justify-center items-center"
+				>
+					<div>
+						<h1 className="mb-3 text-4xl font-bold">
+							How can I help you?
+						</h1>
+
+						<form
+							onSubmit={(e) => {
+								e.preventDefault();
+							}}
+							className="flex my-8"
+						>
+							<input
+								value={searchText}
+								onChange={handleChanges}
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+								placeholder:text-center
+								"
+								type="text"
+								placeholder="Search through the knowledge base for answers..."
+							/>
+						</form>
+					</div>
+				</div>
+
+				<div className="bg-gray-100 h-full">
+					<br />
+					<br />
+
+					{filteredPost && (
+						<ul className="mt-6 flex flex-wrap items-center justify-around sm:w-full">
+							{filteredPost.map(({ node }) => (
+								<li key={node.id}>
+									<Box
+										name={node.article_name}
+										slug={node.slug}
+										description={node.article_description}
+									/>
+								</li>
+							))}
+						</ul>
+					)}
+				</div>
+			</main>
+		</div>
+	);
 }
+export default Index;
+
+export const query = graphql`
+	query {
+		allButterPage(filter: { page_type: { eq: "knowledge_base_articles" } }) {
+			edges {
+				node {
+					slug
+					id
+					article_name
+					article_description
+				}
+			}
+		}
+	}
+`;
