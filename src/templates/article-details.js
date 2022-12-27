@@ -9,11 +9,8 @@ const Index = ({ data }) => {
 			<header>
 				<nav>
 					<div className="h-24 flex items-center justify-center">
-						<Link
-							className="text-3xl text-center bg-green-700 cursor-pointer"
-							to="/"
-						>
-							ButterCMS Knowledge Base
+						<Link to="/">
+							<h1 className="bg-green-400 cursor-pointer">Back to home</h1>
 						</Link>
 					</div>
 				</nav>
