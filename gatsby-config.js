@@ -19,11 +19,7 @@ module.exports = {
 			options: {
 				authToken: process.env.BUTTER_CMS_API_KEY,
 				pages: [`Knowledge base with Gatsby and ButterCMS`],
-				pageTypes: [
-					`knowledge_base_articles`,
-					`knowledge_base_sections`,
-					`knowledge_base_home`,
-				],
+				pageTypes: [`knowledge_base_articles`],
 			},
 		},
 	],

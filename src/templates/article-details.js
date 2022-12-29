@@ -21,12 +21,12 @@ const Index = ({ data }) => {
 					<div className="mt-10 max-w-5xl bg-white p-10">
 						<h1 className="text-4xl mb-10 flex justify-center">
 							{' '}
-							{post.article_name}{' '}
+							{post.kb_article_name}{' '}
 						</h1>
 
 						<div
 							dangerouslySetInnerHTML={{
-								__html: post.article_body,
+								__html: post.kb_article_body,
 							}}
 						></div>
 					</div>
@@ -43,8 +43,8 @@ export const query = graphql`
 		allButterPage(filter: { slug: { eq: $slug } }) {
 			edges {
 				node {
-					article_name
-					article_body
+					kb_article_name
+					kb_article_body
 					slug
 				}
 			}

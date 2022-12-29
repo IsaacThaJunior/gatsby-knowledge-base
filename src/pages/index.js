@@ -34,9 +34,7 @@ function Index({ data }) {
 					className="py-10 bg-green-300 flex text-center align-center justify-center items-center"
 				>
 					<div>
-						<h1 className="mb-3 text-4xl font-bold">
-							How can I help you?
-						</h1>
+						<h1 className="mb-3 text-4xl font-bold">How can I help you?</h1>
 
 						<form
 							onSubmit={(e) => {
@@ -66,9 +64,9 @@ function Index({ data }) {
 							{filteredPost.map(({ node }) => (
 								<li key={node.id}>
 									<Box
-										name={node.article_name}
+										name={node.kb_article_name}
 										slug={node.slug}
-										description={node.article_description}
+										description={node.kb_article_description}
 									/>
 								</li>
 							))}
@@ -83,13 +81,13 @@ export default Index;
 
 export const query = graphql`
 	query {
-		allButterPage(filter: { page_type: { eq: "knowledge_base_articles" } }) {
+		allButterPage {
 			edges {
 				node {
 					slug
 					id
-					article_name
-					article_description
+					kb_article_name
+					kb_article_description
 				}
 			}
 		}
